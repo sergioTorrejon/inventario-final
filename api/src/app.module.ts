@@ -1,9 +1,4 @@
-import * as Joi from '@hapi/joi';
 import { Module } from '@nestjs/common';
-import {
-  ConfigModule,
-  ConfigService,
-} from '@nestjs/config';
 import {
   TypeOrmModule,
   TypeOrmModuleOptions,
@@ -11,49 +6,37 @@ import {
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import {
-  CartasResolucionesModule,
-} from './application/cartas-resoluciones/cartas-resoluciones.module';
-import { CatalogosModule } from './application/catalogos/catalogos.module';
-import {
-  NotificacionesModule,
-} from './application/notificaciones/notificaciones.module';
-import {
-  NotificadosModule,
-} from './application/notificados/notificados.module';
-import {
-  SeguimientosModule,
-} from './application/seguimientos/seguimientos.module';
-import { UsuariosModule } from './application/usuarios/usuarios.module';
+import { DATABASE_CONFIG } from './config/config';
 import { AuthModule } from './core/auth/auth.module';
-import { TYPEORM_CONFIG } from './core/config/constants';
-import databaseConfig from './core/config/database.config';
+import { ProductosModule } from './modules/02-data/productos/productos.module';
+import { SettingsModule } from './modules/01-admin/01-settings/settings.module';
+import { CategoriasModule } from './modules/01-admin/02-categorias/categorias.module';
+import { CatalogosModule } from './modules/01-admin/03-catalogos/catalogos.module';
+import { UsuariosModule } from './modules/01-admin/04-usuarios/usuarios.module';
+import { EmpresasModule } from './modules/02-data/empresas/empresas.module';
+import { PersonasModule } from './modules/02-data/personas/personas.module';
+import { RegistrosModule } from './modules/03-almacenes/registros/registros.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) =>
-        config.get<TypeOrmModuleOptions>(TYPEORM_CONFIG),
-    }),
-    ConfigModule.forRoot({
-      isGlobal: true,
-      load: [databaseConfig],
-      envFilePath: `.env.${process.env.NODE_ENV || 'development'}`, // .env.development
-      validationSchema: Joi.object({ 
-        NODE_ENV: Joi.string()
-          .valid('development', 'production')
-          .default('development')
-      }),
-    }),
+  imports: [TypeOrmModule.forRoot(DATABASE_CONFIG as TypeOrmModuleOptions),
     AuthModule,
-    CartasResolucionesModule,
-    NotificacionesModule,
-    NotificadosModule,
+    
+    //ADMIN
+    SettingsModule,
+    CategoriasModule,
     CatalogosModule,
     UsuariosModule,
-    SeguimientosModule,
     
+    
+    //DATA    
+    EmpresasModule,
+    PersonasModule,
+    ProductosModule,
+        
+    //INVENTARIOS
+    RegistrosModule,    
+
+
   ],
   controllers: [AppController],
   providers: [AppService],

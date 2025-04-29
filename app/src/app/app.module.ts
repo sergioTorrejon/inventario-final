@@ -1,33 +1,49 @@
-import { BrowserModule } from '@angular/platform-browser';
+import {
+  LocationStrategy,
+  PathLocationStrategy,
+} from '@angular/common';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClientModule,
+} from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { JwtModule } from '@auth0/angular-jwt';
-import { JwtInterceptor } from './authentication/helpers/jwt.interceptor';
-import { ErrorInterceptor } from './authentication/helpers/error.interceptor';
-import { LoaderInterceptor } from './authentication/helpers/spinner.interceptor';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { AppRoutes } from './app.routing';
-import { AppComponent } from './app.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppMaterialModule } from './app-material-module';
-import { MatPaginatorIntl } from '@angular/material/paginator';
-import { SharedModule } from './shared/shared.module';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { CoreModule, FlexLayoutModule } from '@angular/flex-layout';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { AppBlankComponent } from './shared/layouts/blank/blank.component';
-import { AppHeaderComponent } from './shared/layouts/full/header/header.component';
-import { AppSidebarComponent } from './shared/layouts/full/sidebar/sidebar.component';
-import { FullComponent } from './shared/layouts/full/full.component';
-import { getEsPaginatorIntl } from './components/translation/es-paginator-intl';
-import { ComponentsModule } from './components/components.module';
-import { SpinnerComponent } from './components/spinner/spinner.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-//import { AbmComponent } from './abm/abm.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+
+import { JwtModule } from '@auth0/angular-jwt';
+
+import { AppMaterialModule } from './app-material-module';
+import { AppComponent } from './app.component';
+import { AppRoutes } from './app.routing';
+import { ErrorInterceptor } from './authentication/helpers/error.interceptor';
+import { JwtInterceptor } from './authentication/helpers/jwt.interceptor';
+import {
+  LoaderInterceptor,
+} from './authentication/helpers/spinner.interceptor';
+import { ComponentsModule } from './components/components.module';
+import { getEsPaginatorIntl } from './components/translation/es-paginator-intl';
+import { AppBlankComponent } from './shared/layouts/blank/blank.component';
+import { FullComponent } from './shared/layouts/full/full.component';
+import {
+  AppHeaderComponent,
+} from './shared/layouts/full/header/header.component';
+import {
+  AppSidebarComponent,
+} from './shared/layouts/full/sidebar/sidebar.component';
+import { SharedModule } from './shared/shared.module';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -38,10 +54,11 @@ export function tokenGetter() {
         FullComponent,
         AppBlankComponent,
         AppHeaderComponent,
-        AppSidebarComponent,
+        AppSidebarComponent
     ],
     imports: [
-        ComponentsModule,
+      
+      ComponentsModule,
         BrowserModule,
         PdfViewerModule,
         BrowserAnimationsModule,
@@ -63,6 +80,7 @@ export function tokenGetter() {
                 blacklistedRoutes: ['192.168.59.140:3001/auth/']
             }
         }),
+        CoreModule,
     ],
     providers: [AppComponent,
         {

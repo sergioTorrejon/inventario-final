@@ -1,1 +1,0 @@
-export * from './seguimientos.entity';

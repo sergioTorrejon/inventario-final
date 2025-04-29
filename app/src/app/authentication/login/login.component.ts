@@ -1,18 +1,15 @@
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-
 import { first } from 'rxjs/operators';
-
-import { AuthenticationService } from '../services/authentication.service';
+import { AuthenticationService } from './../services/authentication.service';
+import { AuthorizationService } from './../services/authorization.service';
 
 /**
  * La clase LoginComponent
@@ -26,12 +23,21 @@ import { AuthenticationService } from '../services/authentication.service';
 })
 export class LoginComponent implements OnInit {
   public form!: UntypedFormGroup;
+  listaUsuarios: any =
+  [
+    {value:'administrador' , label:'administrador'},
+    {value:'operador' , label:'operador'},
+    {value:'supervisor' , label:'supervisor'},
+    {value:'consulta' , label:'consulta'},
+  ];
+
   constructor(
     private fb: UntypedFormBuilder,
     private router: Router,
     private snackBar: MatSnackBar,
-    private authenticationService: AuthenticationService
-    ) {
+    private authenticationService: AuthenticationService,
+    public authorizationService: AuthorizationService,
+  ) {
     }
 
   ngOnInit() {
@@ -47,7 +53,7 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            this.router.navigate(['/consultas']);
+            this.router.navigate(['/dashboard']);
           },
         )
   }
@@ -57,4 +63,6 @@ export class LoginComponent implements OnInit {
     this.form.controls['uname'].setValue(usuario);
     this.form.controls['password'].setValue('clave123');
   }
+
+
 }

@@ -52,10 +52,6 @@ export class AuthorizationService {
         return false;
       }
 
-      //console.log('decodeToken: ');
-      //console.log(decodeToken);
-      //console.log(allowedRoles.indexOf(decodeToken.role) >= 0);
-      
       // Verifica si el atributo (payload) role del token es un array.
       if(!Array.isArray(decodeToken.role) ){
         //console.log('no es array');

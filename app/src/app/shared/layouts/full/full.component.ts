@@ -4,7 +4,10 @@ import { Router } from '@angular/router';
 import {
   ChangeDetectorRef,
   Component,
-  OnDestroy
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges
 } from '@angular/core';
 
 
@@ -18,6 +21,7 @@ import { MenuItems } from '../../menu/menu-model';
   styleUrls: []
 })
 export class FullComponent implements OnDestroy {
+  selection!:any;
   mobileQuery: MediaQueryList;
   dir = 'ltr';
   green = false;
@@ -38,17 +42,20 @@ export class FullComponent implements OnDestroy {
     this.status = !this.status;
   }
   constructor(
-    public router: Router,
+    private router:Router,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     public menuItems: MenuItems
   ) {
+    console.log('router header',this.router.url);
+
     //this.mobileQuery = media.matchMedia('(width: 0px)');  // OCULTANDO EL MENU
     this.mobileQuery = media.matchMedia('(min-width: 768px)');  // VISUALIZACION DEL MENU
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     // tslint:disable-next-line: deprecation
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
+
   ngOnDestroy(): void {
     // tslint:disable-next-line: deprecation
     this.mobileQuery.removeListener(this._mobileQueryListener);

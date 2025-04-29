@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { Roles } from 'src/app/authentication/guard/roles';
+
 export interface BadgeItem {
     type: string;
     value: string;
@@ -32,45 +34,57 @@ export interface Menu {
     children?: ChildrenItems[];
 }
 
-const MENUITEMS: any =
-[
+export const MENUITEMS: any =
+[  
   {
-    state: 'consultas',
-    name: 'Consultas',
+    state: 'dashboard',
+    name: 'Inicio',
     type: 'link',
-    icon: 'manage_search',
-    role : ['consulta'],
+    icon: 'home',
+    role : [],
     children: []
   },
   {
-    state: 'registros',
-    name: 'Registros',
-    type: 'link',
-    icon: 'edit_note',
-    role : ['operador'],
-    children: []
-  },
-  {
-    state: 'verificacion',
-    name: 'Verificación',
-    type: 'link',
-    icon: 'checklist_rtl',
-    role : ['supervisor'],
-    children: []
-  },
-  {
-    state: 'administrador',
-    name: 'Administrador',
-    type: 'link',
+    state: '',
+    name: 'Admin',
+    type: 'sub',
     icon: 'settings',
-    role : ['administrador'],
-    children: []
+    role : [Roles.Administrador],
+    children: [
+      { state: 'settings', name: 'Configuraciòn', type: 'link' },
+      { state: 'personas', name: 'Categorias', type: 'link' },
+      { state: 'solicitudes', name: 'Catalogos', type: 'link' },
+    ]
   },
+/*   {
+    state: '',
+    name: '',
+    type: 'sub',
+    icon: '',
+    role : [Roles.Administrador],
+    children: [
+      { state: 'empresas', name: 'Productos', type: 'link' },
+      { state: 'personas', name: 'Almacenes', type: 'link' },
+      { state: 'solicitudes', name: 'Productos', type: 'link' },
+    ]
+  },  
+  {
+    state: '',
+    name: 'ALMACENES',
+    type: 'sub',
+    icon: 'settings',
+    role : [Roles.Administrador, Roles.Operador, Roles.Supervisor],
+    children: [
+      { state: 'registros', name: 'Registros ', type: 'link' },
+    ]
+  }, */
+
 ];
 
 @Injectable()
 export class MenuItems {
     getMenuitem(): Menu[] {
+      
         return MENUITEMS;
     }
 }
