@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { Roles } from 'src/app/authentication/guard/roles';
-
 export interface BadgeItem {
     type: string;
     value: string;
@@ -34,57 +32,45 @@ export interface Menu {
     children?: ChildrenItems[];
 }
 
-export const MENUITEMS: any =
-[  
+const MENUITEMS: any =
+[
   {
-    state: 'dashboard',
-    name: 'Inicio',
+    state: 'consultas',
+    name: 'Consultas',
     type: 'link',
-    icon: 'home',
-    role : [],
+    icon: 'manage_search',
+    role : ['consulta'],
     children: []
   },
   {
-    state: '',
-    name: 'Admin',
-    type: 'sub',
-    icon: 'settings',
-    role : [Roles.Administrador],
-    children: [
-      { state: 'settings', name: 'Configuraciòn', type: 'link' },
-      { state: 'personas', name: 'Categorias', type: 'link' },
-      { state: 'solicitudes', name: 'Catalogos', type: 'link' },
-    ]
+    state: 'registros',
+    name: 'Registros',
+    type: 'link',
+    icon: 'edit_note',
+    role : ['operador'],
+    children: []
   },
-/*   {
-    state: '',
-    name: '',
-    type: 'sub',
-    icon: '',
-    role : [Roles.Administrador],
-    children: [
-      { state: 'empresas', name: 'Productos', type: 'link' },
-      { state: 'personas', name: 'Almacenes', type: 'link' },
-      { state: 'solicitudes', name: 'Productos', type: 'link' },
-    ]
-  },  
   {
-    state: '',
-    name: 'ALMACENES',
-    type: 'sub',
+    state: 'verificacion',
+    name: 'Verificación',
+    type: 'link',
+    icon: 'checklist_rtl',
+    role : ['supervisor'],
+    children: []
+  },
+  {
+    state: 'administrador',
+    name: 'Administrador',
+    type: 'link',
     icon: 'settings',
-    role : [Roles.Administrador, Roles.Operador, Roles.Supervisor],
-    children: [
-      { state: 'registros', name: 'Registros ', type: 'link' },
-    ]
-  }, */
-
+    role : ['administrador'],
+    children: []
+  },
 ];
 
 @Injectable()
 export class MenuItems {
     getMenuitem(): Menu[] {
-      
         return MENUITEMS;
     }
 }

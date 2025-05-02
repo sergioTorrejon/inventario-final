@@ -16,7 +16,6 @@ import {
 import {
     MatButtonModule
 } from '@angular/material/button';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AuthenticationRoutes } from './authentication.routing';

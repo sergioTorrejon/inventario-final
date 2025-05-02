@@ -8,11 +8,8 @@ import { AuthorizationService } from 'src/app/authentication/services/authorizat
   styleUrls: []
 })
 export class AppHeaderComponent {
-  constructor(
-    public router: Router,
-    public authenticationService: AuthenticationService,
-    ) {
-      console.log('router header',this.router.url);
+  constructor(public router: Router,
+    public authenticationService: AuthenticationService,) {
   }
   onLoggedout() {
     console.log("deslogueo");
@@ -24,10 +21,8 @@ export class AppHeaderComponent {
   }
 
   downloadManual() {
-    
     this.authenticationService.getManual()
   .subscribe((res: any) => {
-    
     var newBlob = new Blob([res], { type: "application/pdf" });
     const data = window.URL.createObjectURL(newBlob);
     var link = document.createElement('a');

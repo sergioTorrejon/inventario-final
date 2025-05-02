@@ -1,7 +1,9 @@
 import { Routes } from '@angular/router';
-
+import { AdminGuard } from './authentication/guard/admin.guard';
 import { AuthGuard } from './authentication/guard/auth.guard';
-import { Roles } from './authentication/guard/roles';
+import { ConsultaGuard } from './authentication/guard/consulta.guard';
+import { OperadorGuard } from './authentication/guard/operador.guard';
+import { SupervisorGuard } from './authentication/guard/supervisor.guard';
 import { AppBlankComponent } from './shared/layouts/blank/blank.component';
 import { FullComponent } from './shared/layouts/full/full.component';
 
@@ -9,33 +11,41 @@ export const AppRoutes: Routes = [
   {
     path: '',
     component: FullComponent,
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
+    //canActivate: [AuthGuard],
+    //canActivateChild: [AuthGuard],
     children: [
-      
       {
           path: '',
-          redirectTo: '/dashboard',
+          redirectTo: '/consultas',
           pathMatch: 'full'
       },
-      
-      //CONSULTAS
+
+// ***************************************01-ARCHIVOS********************************************//
+
       {
-        path: 'dashboard',
+        path: 'consultas',
         //canActivate: [AuthGuard],
-        loadChildren: () => import('./modules/00-dashboard/dashboard.module').then(m => m.DashboardModule)
+        canActivate: [ConsultaGuard],
+        loadChildren: () => import('./pages/01-consultas/consultas.module').then(m => m.ConsultasModule)
       },
-
-
-      //ADMIN
       {
-        path: 'settings',
+        path: 'registros',
         //canActivate: [AuthGuard],
-        loadChildren: () => import('./modules/01-admin/01-settings/settings.module').then(m => m.SettingsModule)
-      },      
-
-      
-      
+        canActivate: [OperadorGuard],
+        loadChildren: () => import('./pages/02-registros/registros.module').then(m => m.RegistrosModule)
+      },
+      {
+        path: 'verificacion',
+        //canActivate: [AuthGuard],
+        canActivate: [SupervisorGuard],
+        loadChildren: () => import('./pages/03-verificaciones/verificacion.module').then(m => m.VerificacionModule)
+      },
+      {
+        path: 'administrador',
+        //canActivate: [AuthGuard],
+        //canActivate: [AdminGuard],
+        loadChildren: () => import('./pages/04-admin/admin.module').then(m => m.AdminModule)
+      },
     ]
   },
 

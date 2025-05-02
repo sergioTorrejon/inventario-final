@@ -1,23 +1,26 @@
-import { CONFIG_ENV } from 'src/config/config';
-
 import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 
-import { JwtStrategy } from './strategies/jwt.strategy';
+import { appConfig } from '../config/constants';
+import { JwtConsultaRoleGuard } from './guards/jwt-consulta-role.guard';
+import { JwtOperadorRoleGuard } from './guards/jwt-operador-role.guard';
+import { JwtStrategy } from './strategies';
 
 @Module({
   imports: [
     PassportModule.register({
       defaultStrategy: 'jwt',
     }),
-    JwtModule.register({
-      secret: CONFIG_ENV.JWT_SECRET,
-      signOptions: { expiresIn: '60m' }
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        secret:appConfig.JWT_SECRET,
+        signOptions: { expiresIn: '5m' },
+      }),
     }),
-    
   ],
-  controllers: [],
-  providers: [ JwtStrategy],
+  providers: [JwtStrategy, JwtOperadorRoleGuard, JwtConsultaRoleGuard],
 })
 export class AuthModule {}

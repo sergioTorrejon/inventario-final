@@ -1,8 +1,3 @@
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpParams,
-} from '@angular/common/http';
 /*import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -14,14 +9,12 @@ export class AuthenticationService {
 }
 */
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { first, map } from 'rxjs/operators';
+import * as moment from "moment";
+import {Globals} from '../../app.globals';
+import {JwtHelperService } from '@auth0/angular-jwt';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-import * as moment from 'moment';
-import { map } from 'rxjs/operators';
-import { environment } from 'src/environments/environment.prod';
-
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { Route, Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 /**
@@ -33,12 +26,11 @@ export class AuthenticationService {
   private url: string = '';
     public currentUser: any;
     constructor(
-
         private http: HttpClient,
         private jwtHelperService: JwtHelperService,
         private snackBar: MatSnackBar
     ) {
-        this.url = environment.api;
+        this.url = Globals.api;
         const usuario = JSON.parse(localStorage.getItem("usuario") || '{}');
         if(usuario && usuario.access_token){
             this.currentUser = this.jwtHelperService.decodeToken(usuario.access_token);
@@ -56,7 +48,7 @@ export class AuthenticationService {
             .set('username', username)
             .set('password', password);*/
         var params = {
-                app: environment.token.app,
+                app: Globals.token.app,
                 usuario: username,
                 password: password
         }
@@ -67,7 +59,7 @@ export class AuthenticationService {
         //}
 
         return this.http.post<any>(
-          environment.token.api,
+            Globals.token.api,
             params,
             {
                 headers: new HttpHeaders({
@@ -114,14 +106,14 @@ export class AuthenticationService {
               .set('password', password);*/
 
           var params = {
-                  app: environment.token.app,
+                  app: Globals.token.app,
                   usuario: username,
                   password: password,
                   newPassword: newPassword
           }
 
           return this.http.post<any>(
-            environment.token.api,
+              Globals.token.api,
               params,
               {
                   headers: new HttpHeaders({
@@ -165,14 +157,14 @@ export class AuthenticationService {
             //.set('client_secret', Globals.app.clientSecret)
             //.set('grant_type', 'refresh_token')
             .set('usuario', refresh_token)
-            .set('app', environment.token.app)
+            .set('app', Globals.token.app)
             .set('refreshToken', refresh_token);
 
         console.log('Inside refresh');
         console.log(bodys);
 
         return this.http.post<any>(
-          environment.token.api + '/refresh',
+            Globals.token.api + '/refresh',
             bodys.toString(),
             {
                 headers: new HttpHeaders()
@@ -207,7 +199,6 @@ export class AuthenticationService {
     public isLoggedIn() {
         const usuario = JSON.parse(localStorage.getItem("usuario") || '{}');
         if(usuario && usuario.access_token){
-
             const decodeToken = this.jwtHelperService.decodeToken(usuario.access_token);
             console.log('decodeTokendecodeTokendecodeTokendecodeToken',decodeToken);
             // esta alternativa seria mejor. pero el servidor está retornando un nbf con 30 segundos antes que la hora en el cliente
@@ -227,14 +218,6 @@ export class AuthenticationService {
           return  decodeToken.role;
       }
   }
-
-  public GetUser() {
-    const usuario = JSON.parse(localStorage.getItem("usuario") || '{}');
-    if(usuario && usuario.access_token){
-        const decodeToken = this.jwtHelperService.decodeToken(usuario.access_token);
-        return  decodeToken;
-    }
-}
 
 
     /**
