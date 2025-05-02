@@ -338,9 +338,9 @@ export class CartasResolucionesService {
         const size = await validationFileSize(file.size);
         if (!size)
         return {status:'error', message:FAIL_FILE_SIZE, data:[]};
-        const fileName = await this.validateFileName(dto);
+/*         const fileName = await this.validateFileName(dto);
         if (!fileName)
-        return {status:'error', message:FAIL_NAME, data:[]};
+        return {status:'error', message:FAIL_NAME, data:[]}; */
         const pathFolder = dto.rc_tipo=='RA'?RA:CC;
         
         await saveFile(pathFolder,file);
@@ -373,9 +373,9 @@ export class CartasResolucionesService {
         const size = await validationFileSize(file.size);
         if (!size)
         return {status:'error', message:FAIL_FILE_SIZE, data:[]};
-        const fileName = await this.validateFileName(edit);
+/*         const fileName = await this.validateFileName(edit);
         if (!fileName)
-        return {status:'error', message:FAIL_NAME, data:[]};
+        return {status:'error', message:FAIL_NAME, data:[]}; */
         const pathFolder = edit.rc_tipo=='RA'?RA:CC;
         await saveFile(pathFolder,file);
       }

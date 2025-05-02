@@ -189,7 +189,7 @@
                 <mat-icon>attach_file</mat-icon>
               </button>
               <input type="text" formControlName="rc_filename" readonly matInput (click)="file.click()" />
-              <input #file type='file' hidden accept="application/pdf" />
+              <input #file type='file' hidden (change)="onSelectFile($event)" accept="application/pdf" />
               <button mat-button matSuffix mat-icon-button color="warn" aria-label="Clear" (click)="clearFile()">
                 <mat-icon>close</mat-icon>
               </button>

@@ -1,42 +1,20 @@
+import { Component, Inject, OnInit } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
-import {
-  UntypedFormBuilder,
-  UntypedFormGroup,
-  Validators,
-} from '@angular/forms';
-import {
-  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
   MAT_MOMENT_DATE_FORMATS,
   MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
-import {
-  DateAdapter,
-  MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE,
-} from '@angular/material/core';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogConfig,
-  MatDialogRef,
-} from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { Words } from 'src/app/models/words';
-
-import {
-  DialogNotificadosInsertComponent,
-} from '../notificados/dialog-notificados-insert/dialog-notificados-insert.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { RegistrosService } from '../registros.service';
 
 @Component({
-  selector: 'app-dialog-update',
-  templateUrl: './dialog-update.component.html',
-  styleUrls: ['./dialog-update.component.css'],
+  selector: 'app-dialog-document',
+  templateUrl: './dialog-document.component.html',
+  styleUrls: ['./dialog-document.component.css'],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'es-BO'},
     {
@@ -47,7 +25,7 @@ import { RegistrosService } from '../registros.service';
     {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
   ],
 })
-export class DialogUpdateComponent implements OnInit {
+export class DialogDocumentComponent implements OnInit {
 
   //Palabras Internacionalizadas
   _words = Words;
@@ -62,8 +40,6 @@ export class DialogUpdateComponent implements OnInit {
   disabled = false;
 
   dataAutoComplete: any =[] ;
-
-  setFecha:any;
 
   nameFileValidation:any={numero:'',fecha:'',tipo:'', val:'', status:''};
 
@@ -87,11 +63,9 @@ export class DialogUpdateComponent implements OnInit {
     'rc_numero': [null, [Validators.required , Validators.minLength(4), Validators.maxLength(4)]],
     'rc_alfa': ['', [Validators.maxLength(1)]],
     'rc_fecha': [null, Validators.required],
-    'rc_titulo':  [null, [Validators.required , Validators.minLength(2), Validators.maxLength(1000)]],
-    'rc_comentarios': ['', [ Validators.minLength(2), Validators.maxLength(2000)]],
+    'rc_titulo':  [null, [Validators.required , Validators.minLength(2), Validators.maxLength(300)]],
+    'rc_comentarios': ['', [ Validators.minLength(2), Validators.maxLength(200)]],
     'rc_filename':  [''],
-    'etapa':  ['CREADO'],
-    'derivado': [''],
   };
 
   formControlNotificaciones:any=
@@ -102,14 +76,16 @@ export class DialogUpdateComponent implements OnInit {
     't_fecha': [null, Validators.required],
     't_hora':  [null, [Validators.required]],
     't_aquien':  [null, [Validators.minLength(2), Validators.maxLength(300)]],
-    't_atraves': ['REPRESENTANTE LEGAL', [Validators.required , Validators.minLength(2), Validators.maxLength(300)]],
+    't_atraves': [null, [Validators.required , Validators.minLength(2), Validators.maxLength(300)]],
     'estado':  [true, [Validators.required]],
   };
+  src = "";
+
 
   constructor
   (
     private formBuilder: UntypedFormBuilder,
-    private dialogRef: MatDialogRef<DialogUpdateComponent>,
+    private dialogRef: MatDialogRef<DialogDocumentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public rest: RegistrosService,
     private dialog: MatDialog,
@@ -123,7 +99,8 @@ export class DialogUpdateComponent implements OnInit {
 
   async ngOnInit( )
   {
-    console.log(this.data)
+
+    console.log('dddd',this.data)
     this.rest.getNotificaciones('notificaciones',this.data.data.id).
     subscribe((data:any) => {
       this.dataNotificaciones = data.data;
@@ -145,19 +122,16 @@ export class DialogUpdateComponent implements OnInit {
       rc_numero: [this.data.data.rc_numero, [Validators.required , Validators.minLength(4), Validators.maxLength(4)]],
       rc_alfa: [this.data.data.rc_alfa, [Validators.maxLength(1)]],
       rc_fecha: [this.data.data.rc_fecha, Validators.required],
-      rc_titulo:  [this.data.data.rc_titulo, [Validators.required , Validators.minLength(2), Validators.maxLength(1000)]],
-      rc_comentarios: [this.data.data.rc_comentarios, [Validators.minLength(2), Validators.maxLength(2000)]],
+      rc_titulo:  [this.data.data.rc_titulo, [Validators.required , Validators.minLength(2), Validators.maxLength(300)]],
+      rc_comentarios: [this.data.data.rc_comentarios, [Validators.minLength(2), Validators.maxLength(300)]],
       rc_filename:  [this.data.data.rc_filename],
-      derivado:  [''],
     };
-    this.setFecha = this.formatDate(this.data.data.rc_fecha)
     this.nameFileValidation.tipo=this.data.data.rc_tipo
     this.nameFileValidation.numero = this.data.data.rc_numero;
     this.nameFileValidation.fecha = ((new Date(this.data.data.rc_fecha)).getFullYear()).toString().substring(2,4);
-    //this.validationNameFile()
+    this.validationNameFile()
     this.formGroup =this.formBuilder.group(this.formControl);
     this.formOnchange();
-    this.getNotificados();
     this.formGroup.controls['rc_subtipo'].disable();
     this.formGroup.controls['rc_alfa'].disable();
 
@@ -184,13 +158,40 @@ export class DialogUpdateComponent implements OnInit {
     //this.formGroup.controls['rc_mercado'].disable();
     this.formGroupNotificacion.controls['t_aquien'].valueChanges.subscribe(async data => {
       console.log(data)
-      this.rest.getNotificadosFilter('notificados',data).
+      this.rest.getNotificadosFilter('productos',data).
       subscribe((data:any) => {
         this.dataAutoComplete = data;
         console.log(data)
       });
     })
+    this.openPdf();
+  }
+  openPdf(){
+    const pdf = this.formGroup.controls['rc_filename'].value
+    if (pdf!='')
+    {
+      this.rest.getFile('cartas_resoluciones', this.data.data.id).subscribe(
+        (res:any) => {
+          const fileURL = URL.createObjectURL(res);
+          this.src =fileURL;
+          //window.open(fileURL, '_blank');
+        });
+    }
 
+  }
+
+  onSelectFile(event: any) {
+    this.file = event.target.files[0];
+    const fileName = this.file.name.substring(0,10);
+    if (fileName==this.nameFileValidation.val)
+    {
+      this.formGroup.controls.rc_filename.setValue(this.file.name)
+      this.nameFileValidation.status='valido';
+    }
+    else{
+      this.openSnackBar('Nombre de Archivo Invalido: '+this.file.name,'','error')
+      this.clearFile();
+    }
   }
 
   clearFile(){
@@ -278,18 +279,18 @@ export class DialogUpdateComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
     };
-    let dialogRef = this.dialog.open(DialogNotificadosInsertComponent, dialogConfig);
+/*     let dialogRef = this.dialog.open(DialogProductosInsertComponent, dialogConfig);
     dialogRef.afterClosed().subscribe((result) => {
-      this.rest.getNotificadosFilter('notificados').
+      this.rest.getNotificadosFilter('productos').
       subscribe((data:any) => {
         this.dataAutoComplete = data;
         console.log(data)
       });
-    });
+    }); */
   }
 
   getAutoComplete() {
-    this.rest.getData('notificados').
+    this.rest.getData('productos').
     subscribe((data:any) => {
       this.dataOptions = data.data;
       console.log(data)
@@ -297,10 +298,10 @@ export class DialogUpdateComponent implements OnInit {
   }
 
   getNotificados(){
-    this.rest.getNotificadosFilter('notificados').
+/*     this.rest.getNotificadosFilter('productos').
     subscribe((data:any) => {
       this.dataAutoComplete = data;
-    });
+    }); */
   }
 
   close(state:string) {
@@ -317,12 +318,11 @@ export class DialogUpdateComponent implements OnInit {
     })
   }
 
-  formatDate(date:Date) {
-    const dateFormat = new Date(date);
-       const auxMax = dateFormat.getFullYear() + '-12-31';
-       const auxMin = dateFormat.getFullYear() + '-01-01';
-       const max =  new Date(auxMax);
-       const min =  new Date(auxMin);
-       return {max:max,min:min}
+  downloadPdf(){
+    this.rest.getFile('cartas_resoluciones', this.data.data.id ).subscribe(
+      (res:any) => {
+        const fileURL = URL.createObjectURL(res);
+        window.open(fileURL, '_blank');
+      });
   }
 }

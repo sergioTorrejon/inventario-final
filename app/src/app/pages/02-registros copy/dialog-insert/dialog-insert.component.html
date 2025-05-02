@@ -164,7 +164,7 @@
       <!-- SUBTITULO ADJUNTA DOCUMENTO -->
         <mat-card-subtitle>{{_words.esp.adjuntarDocumento}}
           <b *ngIf="this.nameFileValidation.val.length==10">
-            <mat-icon color="primary">done</mat-icon>
+            <mat-icon *ngIf="this.nameFileValidation.status=='valido'" color="primary">done</mat-icon>
             (Nombre del documento: {{this.nameFileValidation.val}}APSDD DESCRIPCION.pdf)</b>
         </mat-card-subtitle>
       <!-- FIN SUBTITULO  ADJUNTA DOCUMENTO -->
@@ -177,7 +177,7 @@
                   <mat-icon>attach_file</mat-icon>
                 </button>
                 <input type="text" formControlName="rc_filename" readonly matInput (click)="file.click()" />
-                <input #file type='file' hidden accept="application/pdf" />
+                <input #file type='file' hidden (change)="onSelectFile($event)" accept="application/pdf" />
                 <button mat-button matSuffix mat-icon-button color="warn" aria-label="Clear" (click)="clearFile()">
                   <mat-icon>close</mat-icon>
                 </button>

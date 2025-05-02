@@ -146,6 +146,20 @@ export class DialogInsertComponent implements OnInit  {
     console.log (event)
   }
 
+  onSelectFile(event: any) {
+    this.file = event.target.files[0];
+    const fileName = this.file.name.substring(0,10);
+    if (fileName==this.nameFileValidation.val)
+    {
+      this.formGroup.controls.rc_filename.setValue(this.file.name)
+      this.nameFileValidation.status='valido';
+    }
+    else{
+      this.openSnackBar('Nombre de Archivo Invalido: '+this.file.name,'','error')
+      this.clearFile();
+    }
+  }
+
   clearFile(){
     this.file='';
     this.formGroup.controls.rc_filename.setValue('')

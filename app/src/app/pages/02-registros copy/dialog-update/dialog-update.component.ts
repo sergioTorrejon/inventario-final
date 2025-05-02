@@ -154,7 +154,7 @@ export class DialogUpdateComponent implements OnInit {
     this.nameFileValidation.tipo=this.data.data.rc_tipo
     this.nameFileValidation.numero = this.data.data.rc_numero;
     this.nameFileValidation.fecha = ((new Date(this.data.data.rc_fecha)).getFullYear()).toString().substring(2,4);
-    //this.validationNameFile()
+    this.validationNameFile()
     this.formGroup =this.formBuilder.group(this.formControl);
     this.formOnchange();
     this.getNotificados();
@@ -191,6 +191,20 @@ export class DialogUpdateComponent implements OnInit {
       });
     })
 
+  }
+
+  onSelectFile(event: any) {
+    this.file = event.target.files[0];
+    const fileName = this.file.name.substring(0,10);
+    if (fileName==this.nameFileValidation.val)
+    {
+      this.formGroup.controls.rc_filename.setValue(this.file.name)
+      this.nameFileValidation.status='valido';
+    }
+    else{
+      this.openSnackBar('Nombre de Archivo Invalido: '+this.file.name,'','error')
+      this.clearFile();
+    }
   }
 
   clearFile(){
