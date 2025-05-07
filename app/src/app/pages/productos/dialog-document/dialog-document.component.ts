@@ -9,7 +9,7 @@ import {
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { Words } from 'src/app/models/words';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { RegistrosService } from '../registros.service';
+import { ProductosService } from '../productos.service';
 
 @Component({
   selector: 'app-dialog-document',
@@ -87,7 +87,7 @@ export class DialogDocumentComponent implements OnInit {
     private formBuilder: UntypedFormBuilder,
     private dialogRef: MatDialogRef<DialogDocumentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public rest: RegistrosService,
+    public rest: ProductosService,
     private dialog: MatDialog,
     private _snackBar: MatSnackBar
 

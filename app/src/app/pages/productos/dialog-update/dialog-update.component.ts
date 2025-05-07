@@ -28,10 +28,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Words } from 'src/app/models/words';
 
-import {
-  DialogNotificadosInsertComponent,
-} from '../notificados/dialog-notificados-insert/dialog-notificados-insert.component';
-import { RegistrosService } from '../registros.service';
+import { ProductosService } from '../productos.service';
 
 @Component({
   selector: 'app-dialog-update',
@@ -111,7 +108,7 @@ export class DialogUpdateComponent implements OnInit {
     private formBuilder: UntypedFormBuilder,
     private dialogRef: MatDialogRef<DialogUpdateComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public rest: RegistrosService,
+    public rest: ProductosService,
     private dialog: MatDialog,
     private _snackBar: MatSnackBar
 
@@ -292,14 +289,6 @@ export class DialogUpdateComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
     };
-    let dialogRef = this.dialog.open(DialogNotificadosInsertComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe((result) => {
-      this.rest.getNotificadosFilter('notificados').
-      subscribe((data:any) => {
-        this.dataAutoComplete = data;
-        console.log(data)
-      });
-    });
   }
 
   getAutoComplete() {

@@ -35,7 +35,7 @@ export class RegistrosService {
       (dto.tipo === ''? ``: `&rc_tipo=${dto.tipo}`) +
       (dto.numero === ''? ``: `&rc_numero=${dto.numero}`) +
       (dto.titulo === ''? ``: `&rc_titulo=${dto.titulo}`) +
-      (dto.subtipo === ''? ``: `&rc_subtipo=${dto.subtipo}`) +
+      //(dto.subtipo === ''? ``: `&rc_subtipo=${dto.subtipo}`) +
       (dto.mercado === ''? ``: `&rc_mercado=${dto.mercado}`) +
       (dto.del === ''? ``: `&del=${this.formatDate(dto.del)}`) +
       (dto.al === ''? ``: `&al=${this.formatDate(dto.al)}`)

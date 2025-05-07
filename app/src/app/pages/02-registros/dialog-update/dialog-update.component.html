@@ -113,28 +113,6 @@
       </form>
     </div>
 
-    <!-- ESPACIO -->
-    <div fxFlex.gt-lg="5" fxFlex.gt-md="5"  fxFlex.gt-xs="0" fxFlex="0">
-    </div>
-
-    <!-- HABILITAR_ALPHA -->
-    <div fxFlex.gt-lg="5" fxFlex.gt-md="5"  fxFlex.gt-xs="100" fxFlex="100" >
-      <div>
-        <mat-slide-toggle class="form-element" [(ngModel)]="disabled" (change)="enableAlpha($event.checked)"></mat-slide-toggle>
-      </div>
-    </div>
-
-    <!-- ALPHA -->
-    <div fxFlex.gt-lg="15" fxFlex.gt-md="15"  fxFlex.gt-xs="100" fxFlex="100" >
-      <form [formGroup]="formGroup" >
-        <mat-form-field class="form-element" appearance="outline">
-          <mat-label>Alfabetico</mat-label>
-          <input  matInput formControlName="rc_alfa" maxlength = "1" >
-          <mat-error >Alfanumerico</mat-error>
-        </mat-form-field>
-      </form>
-    </div>
-
     <!---------------------- FIN FILA 2 ------------------------->
 
     <!---------------------- FILA 3 ----------------------------->
@@ -174,12 +152,6 @@
         </div>
     <!---------------------- FIN FILA 4 ------------------------->
     <!---------------------- FILA 5 ----------------------------->
-    <!-- SUBTITULO ADJUNTA DOCUMENTO -->
-      <mat-card-subtitle>{{_words.esp.adjuntarDocumento}}
-        <b *ngIf="this.nameFileValidation.val.length==10"> (Nombre del documento: {{this.nameFileValidation.val}}APSDD DESCRIPCION.pdf)</b>
-        <mat-icon *ngIf="this.nameFileValidation.status=='valido'" color="primary">done</mat-icon>
-      </mat-card-subtitle>
-    <!-- FIN SUBTITULO  ADJUNTA DOCUMENTO -->
       <!-- ADJUNTA DOCUMENTO -->
         <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100" >
           <form  [formGroup]="formGroup" >

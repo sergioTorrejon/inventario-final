@@ -34,6 +34,30 @@ export interface Menu {
 
 const MENUITEMS: any =
 [
+
+  {
+    state: '',
+    name: 'Admin',
+    type: 'sub',
+    icon: 'settings',
+    role : ['administrador'],
+    children: [
+      { state: 'administrador', name: 'Administrador', type: 'link' },
+    ]
+  },  
+
+  {
+    state: '',
+    name: 'Supervisor',
+    type: 'sub',
+    icon: 'settings',
+    role : ['supervisor'],
+    children: [
+      { state: 'verificacion', name: 'Verificación', type: 'link' },
+      { state: 'productos', name: 'Productos', type: 'link' },
+    ]
+  },  
+
   {
     state: 'consultas',
     name: 'Consultas',
@@ -50,22 +74,22 @@ const MENUITEMS: any =
     role : ['operador'],
     children: []
   },
-  {
+/*   {
     state: 'verificacion',
     name: 'Verificación',
     type: 'link',
     icon: 'checklist_rtl',
     role : ['supervisor'],
     children: []
-  },
-  {
+  }, */
+/*   {
     state: 'administrador',
     name: 'Administrador',
     type: 'link',
     icon: 'settings',
     role : ['administrador'],
     children: []
-  },
+  }, */
 ];
 
 @Injectable()

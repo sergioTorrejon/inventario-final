@@ -8,7 +8,7 @@
       <mat-icon>close</mat-icon>
     </button>
   </div>
-  <h2 mat-dialog-title class="head-dialog" style="text-align: center;">{{_words.esp.titulo}}</h2>
+  <h2 mat-dialog-title class="head-dialog" style="text-align: center;">Registro de Almacenes</h2>
 <!--FIN DEL HEADER -->
 <!-- BODY -->
   <div mat-dialog-content> <!-- instead of your <div>  or use <div mat-dialog-content> -->
@@ -19,22 +19,12 @@
       <!-- FORMULARIO INSECION -->
         <div fxLayout="row wrap">
       <!----------------------- FILA 1 ----------------------------->
-        <!-- PUBLICAR EN WEB -->
-<!--           <div fxFlex.gt-lg="15" fxFlex.gt-md="15"  fxFlex.gt-xs="100" fxFlex="100">
-            <form  [formGroup]="formGroup" >
-              <mat-form-field class="form-element" appearance="outline" >
-                <mat-label>Publicar en la web</mat-label>
-                <mat-select formControlName="rc_publicar_web">
-                  <mat-option *ngFor="let option of this.dataOptions.publicar" [value]="option.value">{{option.label}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </form>
-          </div> -->
-          <!-- INSTITUCION -->
+
+          <!-- TIPO DE REGISTRO -->
           <div fxFlex="50">
             <form  [formGroup]="formGroup" >
               <mat-form-field class="form-element" appearance="outline" >
-                <mat-label>Institucion</mat-label>
+                <mat-label>Tipo de Registro</mat-label>
                 <mat-select formControlName="rc_inten">
                   <mat-option *ngFor="let option of this.dataOptions.institucion" [value]="option.cod_ele">{{option.descrip}}</mat-option>
                 </mat-select>
@@ -43,18 +33,18 @@
             </form>
           </div>
 
-          <!-- MERCADO -->
+          <!-- ALMACEN -->
           <div fxFlex="50">
             <form  [formGroup]="formGroup" >
               <mat-form-field class="form-element" appearance="outline" >
-                <mat-label>Mercado</mat-label>
+                <mat-label>Almacen</mat-label>
                 <mat-select formControlName="rc_mercado">
                   <mat-option *ngFor="let option of this.dataOptions.mercado" [value]="option.cod_ele">{{option.descrip}}</mat-option>
                 </mat-select>
                 <mat-error >Seleccione el Mercado</mat-error>
               </mat-form-field>
             </form>
-          </div>
+          </div>          
 
           <!-- TIPO DOCUMENTO -->
           <div fxFlex.gt-lg="30" fxFlex.gt-md="30"  fxFlex.gt-xs="100" fxFlex="100">
@@ -67,7 +57,11 @@
                 <mat-error >Seleccione una tipo de documento</mat-error>
               </mat-form-field>
             </form>
-          </div>
+          </div>          
+
+
+
+
         <!-- FECHA -->
           <div fxFlex.gt-lg="15" fxFlex.gt-md="15"  fxFlex.gt-xs="100" fxFlex="100">
             <form  [formGroup]="formGroup" >
@@ -81,60 +75,32 @@
 
       <!---------------------- FIN FILA 1 ------------------------->
       <!---------------------- FILA 2 ----------------------------->
-        <!-- SUB TIPO -->
-          <div fxFlex.gt-lg="60" fxFlex.gt-md="60"  fxFlex.gt-xs="100" fxFlex="100">
-            <form  [formGroup]="formGroup" >
-              <mat-form-field class="form-element" appearance="outline" >
-                <mat-label>Tipo de Resolución</mat-label>
-                <mat-select formControlName="rc_subtipo">
-                  <mat-option *ngFor="let option of this.dataOptions.tipo" [value]="option.cod_ele">{{option.descrip}}</mat-option>
-                </mat-select>
-                <mat-error >Seleccione un tipo de resolución</mat-error>
-              </mat-form-field>
-            </form>
-          </div>
+
         <!-- NUMERO -->
-          <div fxFlex.gt-lg="15" fxFlex.gt-md="15"  fxFlex.gt-xs="100" fxFlex="100">
+          <div fxFlex.gt-lg="55" fxFlex.gt-md="55"  fxFlex.gt-xs="100" fxFlex="100">
             <form  [formGroup]="formGroup" >
               <mat-form-field class="form-element" appearance="outline" >
-                <mat-label>Número </mat-label>
-                <input  matInput formControlName="rc_numero" maxlength = "4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
-                <mat-error >*Número 4 dígitos Ej.0025</mat-error>
-              </mat-form-field>
-            </form>
-          </div>
-        <!-- ESPACIO -->
-          <div fxFlex.gt-lg="5" fxFlex.gt-md="5"  fxFlex.gt-xs="0" fxFlex="0">
-          </div>
-        <!-- HABILITAR_ALPHA -->
-          <div fxFlex.gt-lg="5" fxFlex.gt-md="5"  fxFlex.gt-xs="100" fxFlex="100" >
-            <div>
-              <mat-slide-toggle class="form-element" [(ngModel)]="disabled" (change)="enableAlpha($event.checked)"></mat-slide-toggle>
-            </div>
-          </div>
-        <!-- ALPHA -->
-          <div fxFlex.gt-lg="15" fxFlex.gt-md="15"  fxFlex.gt-xs="100" fxFlex="100" >
-            <form [formGroup]="formGroup" >
-              <mat-form-field class="form-element" appearance="outline">
-                <mat-label>Alfabetico</mat-label>
-                <input  matInput formControlName="rc_alfa" maxlength = "1" >
-                <mat-error >Alfanumerico</mat-error>
+                <mat-label>Identificador del Documento </mat-label>
+                <input  matInput formControlName="rc_numero">
+                <mat-error >*Número o identificador del Documento</mat-error>
               </mat-form-field>
             </form>
           </div>
       <!---------------------- FIN FILA 2 ------------------------->
+
       <!---------------------- FILA 3 ----------------------------->
-        <!-- TITULO -->
+        <!-- Descripción -->
           <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100">
             <form  [formGroup]="formGroup" >
               <mat-form-field class="form-element" appearance="outline">
-                <mat-label>Titulo</mat-label>
+                <mat-label>Descripción</mat-label>
                 <input  matInput formControlName="rc_titulo"  maxlength = "1000">
-                <mat-error >Ingrese el titulo de la Resolucion</mat-error>
+                <mat-error >Ingrese una Descripción</mat-error>
               </mat-form-field>
             </form>
           </div>
       <!---------------------- FIN FILA 3 ------------------------->
+      
       <!---------------------- FILA 4 ----------------------------->
         <!-- COMENTARIOS -->
           <div fxFlex.gt-lg="70" fxFlex.gt-md="70"  fxFlex.gt-xs="100" fxFlex="100" >
@@ -161,23 +127,12 @@
           </div>
       <!---------------------- FIN FILA 4 ------------------------->
       <!---------------------- FILA 5 ----------------------------->
-      <!-- SUBTITULO ADJUNTA DOCUMENTO -->
-        <mat-card-subtitle>{{_words.esp.adjuntarDocumento}}
-          <b *ngIf="this.nameFileValidation.val.length==10">
-            <mat-icon color="primary">done</mat-icon>
-            (Nombre del documento: {{this.nameFileValidation.val}}APSDD DESCRIPCION.pdf)</b>
-        </mat-card-subtitle>
-      <!-- FIN SUBTITULO  ADJUNTA DOCUMENTO -->
         <!-- ADJUNTA DOCUMENTO -->
           <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100" >
             <form  [formGroup]="formGroup" >
               <mat-form-field class="form-element" appearance="outline" >
-                <mat-label>Documento digitalizado</mat-label>
-                <button *ngIf="this.nameFileValidation.val.length==10" mat-icon-button matPrefix (click)="file.click()">
-                  <mat-icon>attach_file</mat-icon>
-                </button>
                 <input type="text" formControlName="rc_filename" readonly matInput (click)="file.click()" />
-                <input #file type='file' hidden accept="application/pdf" />
+                <input #file type='file' accept="application/pdf" />
                 <button mat-button matSuffix mat-icon-button color="warn" aria-label="Clear" (click)="clearFile()">
                   <mat-icon>close</mat-icon>
                 </button>
@@ -190,11 +145,9 @@
       </div>
       <!-- FIN DEL  FORMULARIO INSECION -->
 
-      <!-- BODY - NOTIFICACIONES  -->
 
-
-      <!-- BODY - DATA DE TABLA NOTIFICACIONES  -->
-      <div *ngIf="disabledNotificaciones">
+      <!-- DATA DE TABLA PRODUCTOS  -->
+      <div >
         <mat-card-subtitle >{{_words.esp.registroNotificaciones}}</mat-card-subtitle>
         <!-- BODY - FORMULARIO DE INSERCION IN ROW  -->
         <div fxLayout="row wrap">

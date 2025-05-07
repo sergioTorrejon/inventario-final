@@ -25,12 +25,12 @@ export class RegistrosComponent implements OnInit {
   formControl:any=
   {
     model:['cartas_resoluciones'],
-    entidad:['PS'],
+    entidad:[''],
     modulo:['REGISTRO'],
     etapa:[''],
     year:['0'],
     tipo:[''],
-    subtipo:[''],
+    //subtipo:[''],
     mercado:[''],
     numero:[''],
     titulo:[''],
@@ -88,7 +88,6 @@ export class RegistrosComponent implements OnInit {
 
     setForm(){
       this.formGroup =this.formBuilder.group(this.formControl);
-      this.formGroup.controls['subtipo'].disable();
       this.formOnchange();
       this.dataTableUpdate(this.page);
     }
@@ -102,14 +101,6 @@ export class RegistrosComponent implements OnInit {
     formOnchange(){
       this.formGroup.valueChanges.subscribe(async data => {
         this.dataTableUpdate(this.page);
-      })
-      this.formGroup.controls['tipo'].valueChanges.subscribe(async data => {
-        this.formGroup.controls['subtipo'].enable();
-
-        if (data!='RA'){
-          this.formGroup.controls['subtipo'].disable();
-          this.formGroup.controls['subtipo'].setValue('');
-        }
       })
     }
 

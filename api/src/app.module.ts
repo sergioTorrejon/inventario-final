@@ -13,21 +13,22 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import {
   CartasResolucionesModule,
-} from './application/cartas-resoluciones/cartas-resoluciones.module';
-import { CatalogosModule } from './application/catalogos/catalogos.module';
+} from './modules/registros/registros.module';
+import { CatalogosModule } from './modules/catalogos/catalogos.module';
 import {
   NotificacionesModule,
-} from './application/notificaciones/notificaciones.module';
+} from './modules/registros-detalle/notificaciones.module';
 import {
   NotificadosModule,
-} from './application/notificados/notificados.module';
+} from './modules/notificados/notificados.module';
 import {
   SeguimientosModule,
-} from './application/seguimientos/seguimientos.module';
-import { UsuariosModule } from './application/usuarios/usuarios.module';
+} from './modules/seguimientos/seguimientos.module';
+import { UsuariosModule } from './modules/usuarios/usuarios.module';
 import { AuthModule } from './core/auth/auth.module';
 import { TYPEORM_CONFIG } from './core/config/constants';
 import databaseConfig from './core/config/database.config';
+import { ProductosModule } from './modules/productos/productos.module';
 
 @Module({
   imports: [
@@ -53,7 +54,7 @@ import databaseConfig from './core/config/database.config';
     CatalogosModule,
     UsuariosModule,
     SeguimientosModule,
-    
+    ProductosModule
   ],
   controllers: [AppController],
   providers: [AppService],

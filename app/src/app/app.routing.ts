@@ -20,8 +20,6 @@ export const AppRoutes: Routes = [
           pathMatch: 'full'
       },
 
-// ***************************************01-ARCHIVOS********************************************//
-
       {
         path: 'consultas',
         //canActivate: [AuthGuard],
@@ -40,6 +38,13 @@ export const AppRoutes: Routes = [
         canActivate: [SupervisorGuard],
         loadChildren: () => import('./pages/03-verificaciones/verificacion.module').then(m => m.VerificacionModule)
       },
+      {
+        path: 'productos',
+        //canActivate: [AuthGuard],
+        canActivate: [SupervisorGuard],
+        loadChildren: () => import('./pages/productos/productos.module').then(m => m.ProductosModule)
+      },
+
       {
         path: 'administrador',
         //canActivate: [AuthGuard],

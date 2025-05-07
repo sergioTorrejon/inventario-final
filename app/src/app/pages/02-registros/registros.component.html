@@ -23,101 +23,120 @@
     <!-- FIN CABECERA -->
 
     <!--SUB TITULO O TITULO DE LA TABLA-->
+
     <!--BUSQUEDA AVANZADA-->
     <div *ngIf="this.authorizationService.isAuthorized('operador')" fxLayout="row wrap">
       <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100" >
         <div fxLayout="row wrap" >
-            <div fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
-              <form  [formGroup]="formGroup" >
-                <mat-form-field class="form-search" appearance="outline" >
-                    <mat-label>Estado</mat-label>
-                    <mat-select formControlName="etapa">
-                      <mat-option value="">TODOS</mat-option>
-                      <mat-option *ngFor="let option of estado" [value]="option.value">{{option.label}}</mat-option>
-                    </mat-select >
-                </mat-form-field>
-              </form>
-            </div>
-            <div fxFlex.gt-lg="10" fxFlex.gt-md="10"  fxFlex.gt-xs="100" fxFlex="100">
-              <form  [formGroup]="formGroup" >
+
+          <!-- ESTADO -->
+          <div fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
+            <form  [formGroup]="formGroup" >
               <mat-form-field class="form-search" appearance="outline" >
-                  <mat-label>Gestión</mat-label>
-                  <mat-select formControlName="year">
-                    <mat-option value='0'>TODOS</mat-option>
-                    <mat-option *ngFor="let option of this.dataOptions.years" [value]="option.label" >{{option.label}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </form>
-            </div>
-            <div fxFlex.gt-lg="25" fxFlex.gt-md="25"  fxFlex.gt-xs="100" fxFlex="100">
-              <form  [formGroup]="formGroup" >
-              <mat-form-field class="form-search" appearance="outline" >
-                  <mat-label>Tipo de documento</mat-label>
-                  <mat-select formControlName="tipo">
-                    <mat-option value="">TODOS</mat-option>
-                    <mat-option *ngFor="let option of this.dataOptions.documentos" [value]="option.cod_ele">{{option.descrip}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </form>
-            </div>
-            <div fxFlex.gt-lg="35" fxFlex.gt-md="35"  fxFlex.gt-xs="100" fxFlex="100">
-              <form  [formGroup]="formGroup" >
-              <mat-form-field class="form-search" appearance="outline" >
-                <mat-label>Tipo de resolución</mat-label>
-                <mat-select formControlName="subtipo">
+                <mat-label>Estado</mat-label>
+                <mat-select formControlName="etapa">
                   <mat-option value="">TODOS</mat-option>
-                  <mat-option *ngFor="let option of this.dataOptions.tipo" [value]="option.cod_ele">{{option.descrip}}</mat-option>
+                  <mat-option *ngFor="let option of estado" [value]="option.value">{{option.label}}</mat-option>
+                </mat-select >
+              </mat-form-field>
+            </form>
+          </div>
+
+          <!-- GESTIÓN -->
+          <div fxFlex.gt-lg="10" fxFlex.gt-md="10"  fxFlex.gt-xs="100" fxFlex="100">
+            <form  [formGroup]="formGroup" >
+              <mat-form-field class="form-search" appearance="outline" >
+                <mat-label>Gestión</mat-label>
+                <mat-select formControlName="year">
+                  <mat-option value='0'>TODOS</mat-option>
+                  <mat-option *ngFor="let option of this.dataOptions.years" [value]="option.label" >{{option.label}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </form>
-            </div>
-            <div fxFlex.gt-lg="10" fxFlex.gt-md="10"  fxFlex.gt-xs="100" fxFlex="100">
-              <form  [formGroup]="formGroup" >
+          </div>
+
+          <!-- TIPO DE REGISTRO -->
+          <div fxFlex.gt-lg="25" fxFlex.gt-md="25"  fxFlex.gt-xs="100" fxFlex="100">
+            <form  [formGroup]="formGroup" >
               <mat-form-field class="form-search" appearance="outline" >
-              <mat-label>Mercado</mat-label>
-              <mat-select formControlName="mercado">
-                <mat-option value=''>TODOS</mat-option>
-                <mat-option *ngFor="let option of this.dataOptions.mercado" [value]="option.cod_ele" >{{option.descrip}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </form>
-            </div>
-            <div fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100" >
-              <form  [formGroup]="formGroup" >
-                <mat-form-field class="form-search" appearance="outline">
-                  <mat-label>Número</mat-label>
-                  <input type="text"  matInput formControlName="numero" maxlength = "4" autocomplete="off" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
-                  <button mat-button *ngIf="formGroup.controls['numero'].value" matSuffix mat-icon-button color="warn" aria-label="Clear" (click)="formGroup.controls['numero'].setValue('')">
-                    <mat-icon>close</mat-icon>
-                  </button>
-                </mat-form-field>
-              </form>
-            </div>
-            <div fxFlex.gt-lg="40" fxFlex.gt-md="40"  fxFlex.gt-xs="100" fxFlex="100" >
-              <form  [formGroup]="formGroup" >
-              <mat-form-field class="form-search" appearance="outline">
-                  <mat-label>Título</mat-label>
-                  <input type="text" maxlength = "100" matInput formControlName="titulo" onkeypress="return (event.charCode != 39)">
-                  <button mat-button *ngIf="formGroup.controls['titulo'].value" matSuffix mat-icon-button color="warn" aria-label="Clear" (click)="formGroup.controls['titulo'].setValue('')">
-                    <mat-icon>close</mat-icon>
-                  </button>
-                </mat-form-field>
-              </form>
-            </div>
-            <div fxFlex.gt-lg="15" fxFlex.gt-md="15"  fxFlex.gt-xs="100" fxFlex="100" >
-              <form  [formGroup]="formGroup" >
-              <mat-form-field class="form-search" appearance="outline">
-                  <mat-label>Desde</mat-label>
-                  <button mat-button *ngIf="formGroup.controls['del'].value" matSuffix mat-icon-button color="warn" aria-label="Clear" (click)="formGroup.controls['del'].setValue('')">
-                    <mat-icon>close</mat-icon>
-                  </button>
-                  <input [matDatepicker]="desde" (click)="desde.open()" matInput formControlName="del" readonly>
-                  <mat-datepicker #desde></mat-datepicker>
+                <mat-label>Tipo de Registro</mat-label>
+                <mat-select formControlName="entidad">
+                  <mat-option value="">TODOS</mat-option>
+                  <mat-option *ngFor="let option of this.dataOptions.institucion" [value]="option.cod_ele">{{option.descrip}}</mat-option>
+                </mat-select>
               </mat-form-field>
             </form>
-            </div>
-            <div fxFlex.gt-lg="15" fxFlex.gt-md="15"  fxFlex.gt-xs="100" fxFlex="100" >
-              <form  [formGroup]="formGroup" >
+          </div>
+
+          <!-- TIPO DE DOCUMENTO -->
+          <div fxFlex.gt-lg="35" fxFlex.gt-md="35"  fxFlex.gt-xs="100" fxFlex="100">
+            <form  [formGroup]="formGroup" >
+              <mat-form-field class="form-search" appearance="outline" >
+                <mat-label>Tipo de documento</mat-label>
+                <mat-select formControlName="tipo">
+                  <mat-option value="">TODOS</mat-option>
+                  <mat-option *ngFor="let option of this.dataOptions.documentos" [value]="option.cod_ele">{{option.descrip}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </form>
+          </div>
+
+          <!-- ALMACEN -->
+          <div fxFlex.gt-lg="10" fxFlex.gt-md="10"  fxFlex.gt-xs="100" fxFlex="100">
+            <form  [formGroup]="formGroup" >
+              <mat-form-field class="form-search" appearance="outline" >
+                <mat-label>Almacen</mat-label>
+                <mat-select formControlName="mercado">
+                  <mat-option value=''>TODOS</mat-option>
+                  <mat-option *ngFor="let option of this.dataOptions.mercado" [value]="option.cod_ele" >{{option.descrip}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </form>
+          </div>
+
+          <!-- NUMERO DE DOCUMENTO -->
+          <div fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100" >
+            <form  [formGroup]="formGroup" >
+              <mat-form-field class="form-search" appearance="outline">
+                <mat-label>Número de Documento</mat-label>
+                <input type="text"  matInput formControlName="numero" maxlength = "4" autocomplete="off" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                <button mat-button *ngIf="formGroup.controls['numero'].value" matSuffix mat-icon-button color="warn" aria-label="Clear" (click)="formGroup.controls['numero'].setValue('')">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </form>
+          </div>
+
+          <!-- Descripción -->
+          <div fxFlex.gt-lg="40" fxFlex.gt-md="40"  fxFlex.gt-xs="100" fxFlex="100" >
+            <form  [formGroup]="formGroup" >
+              <mat-form-field class="form-search" appearance="outline">
+                <mat-label>Descripción</mat-label>
+                <input type="text" maxlength = "100" matInput formControlName="titulo" onkeypress="return (event.charCode != 39)">
+                <button mat-button *ngIf="formGroup.controls['titulo'].value" matSuffix mat-icon-button color="warn" aria-label="Clear" (click)="formGroup.controls['titulo'].setValue('')">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </form>
+          </div>
+
+          <!-- DESDE -->
+          <div fxFlex.gt-lg="15" fxFlex.gt-md="15"  fxFlex.gt-xs="100" fxFlex="100" >
+            <form  [formGroup]="formGroup" >
+              <mat-form-field class="form-search" appearance="outline">
+                <mat-label>Desde</mat-label>
+                <button mat-button *ngIf="formGroup.controls['del'].value" matSuffix mat-icon-button color="warn" aria-label="Clear" (click)="formGroup.controls['del'].setValue('')">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <input [matDatepicker]="desde" (click)="desde.open()" matInput formControlName="del" readonly>
+                <mat-datepicker #desde></mat-datepicker>
+              </mat-form-field>
+            </form>
+          </div>
+
+          <!-- HASTA -->
+          <div fxFlex.gt-lg="15" fxFlex.gt-md="15"  fxFlex.gt-xs="100" fxFlex="100" >
+            <form  [formGroup]="formGroup" >
               <mat-form-field class="form-search" appearance="outline">
                 <mat-label>Hasta</mat-label>
                 <input [matDatepicker]="hasta" (click)="hasta.open()" matInput formControlName="al" readonly>
@@ -127,12 +146,16 @@
                 <mat-datepicker #hasta></mat-datepicker>
               </mat-form-field>
             </form>
-            </div>
-            <div style="text-align: center;" fxFlex.gt-lg="10" fxFlex.gt-md="10"  fxFlex.gt-xs="100" fxFlex="100" >
-              <button mat-button class="form-search" color="primary" (click)="setForm()">
-                <mat-icon>autorenew</mat-icon>
-                Limpiar</button>
-            </div>
+          </div>
+
+          <!-- BOTON LIMPIAR -->
+          <div style="text-align: center;" fxFlex.gt-lg="10" fxFlex.gt-md="10"  fxFlex.gt-xs="100" fxFlex="100" >
+            <button mat-button class="form-search" color="primary" (click)="setForm()">
+              <mat-icon>autorenew</mat-icon>
+              Limpiar
+            </button>
+          </div>
+
         </div>
       </div>
     </div>
@@ -151,16 +174,18 @@
 
     <!-- DATA DE LA TABLA -->
     <div fxLayout="row wrap" *ngFor="let config of data">
+      <div class="form-table-body"   fxFlex.gt-lg="19" fxFlex.gt-md="19"  fxFlex.gt-xs="100" fxFlex="100">
+        <div class="form-table-body" >
+          {{config['entidad']}}
+        </div>
+      </div>
+
       <div class="form-table-body"   fxFlex.gt-lg="15" fxFlex.gt-md="15"  fxFlex.gt-xs="100" fxFlex="100">
         <div class="form-table-body" >
           {{config['tipo']}}
         </div>
       </div>
-      <div class="form-table-body"   fxFlex.gt-lg="19" fxFlex.gt-md="19"  fxFlex.gt-xs="100" fxFlex="100">
-        <div class="form-table-body" >
-          {{config['subtipo']}}
-        </div>
-      </div>
+
       <div class="form-table-body"   fxFlex.gt-lg="8" fxFlex.gt-md="8"  fxFlex.gt-xs="100" fxFlex="100">
         <div class="form-table-body" >
           {{config['rc_numero']}}

@@ -48,24 +48,19 @@ export class DialogInsertComponent implements OnInit  {
   dataOptions: any = [] ;
   file:any;
 
-  disabledNotificaciones = false;
   disabled = false;
 
   inputNotificados:string=''
-
-  nameFileValidation:any={numero:'',fecha:'',tipo:'', val:'', status:''};
 
   dataAutoComplete: any =[] ;
 
   formControl:any=
   {
-    'rc_inten':  ['PS', [Validators.required]],
+    'rc_inten':  ['', [Validators.required]],
     'rc_tipo':  ['', [Validators.required]],
     'rc_mercado':  [null, [Validators.required]],
-    'rc_subtipo':  ['', [Validators.required]],
     'rc_publicar_web': [true, [Validators.required]],
-    'rc_numero': [null, [Validators.required , Validators.minLength(4), Validators.maxLength(4)]],
-    'rc_alfa': ['', [Validators.maxLength(1)]],
+    'rc_numero': [null, [Validators.required ]],
     'rc_fecha': [null, Validators.required],
     'rc_titulo':  [null, [Validators.required , Validators.minLength(2), Validators.maxLength(1000)]],
     'rc_comentarios': ['', [ Validators.minLength(2), Validators.maxLength(2000)]],
@@ -109,74 +104,39 @@ export class DialogInsertComponent implements OnInit  {
     this.getNotificados();
     this.formOnchange();
     this.formGroupNotificacion.controls['t_aquien'].setValue('');
-    this.formGroup.controls['rc_subtipo'].disable();
-    this.formGroup.controls['rc_filename'].disable();
-    this.formGroup.controls['rc_alfa'].disable();
-    this.formGroup.controls['rc_tipo'].valueChanges.subscribe(async data => {
-      this.disabledNotificaciones = true
+    this.formGroup.controls['rc_filename'].enable();
+/*     this.formGroup.controls['rc_tipo'].valueChanges.subscribe(async data => {
       this.dataNotificaciones=[];
       this.formGroup.controls['rc_titulo'].setValue('');
       this.formGroup.controls['rc_subtipo'].enable();
 
       if (data!='RA'){
-        this.disabledNotificaciones = false;
         this.formGroup.controls['rc_subtipo'].disable();
         this.formGroup.controls['rc_subtipo'].setValue('');
       }
-    })
+    }) */
     this.filterNotificados.valueChanges.subscribe(async data => {
 
-      console.log('333',data)
       this.rest.getNotificadosFilter('notificados',data).
       subscribe((data:any) => {
         this.dataAutoComplete = data;
-        console.log('111',data)
       });
     })
-  }
-
-  enableAlpha(event: any) {
-    this.formGroup.controls['rc_alfa'].enable();
-    if (!event)
-    {
-      this.formGroup.controls['rc_alfa'].disable();
-      this.formGroup.controls['rc_alfa'].setValue('')
-    }
-    this.formGroup.controls['rc_alfa'].setValue('')
-    console.log (event)
   }
 
   clearFile(){
     this.file='';
     this.formGroup.controls.rc_filename.setValue('')
-    this.nameFileValidation.status='invalido';
   }
 
   formOnchange(){
     this.formGroup.controls['rc_tipo'].valueChanges.subscribe(async data => {
-      this.nameFileValidation.tipo = data;
-      this.validationNameFile()
     })
     this.formGroup.controls['rc_numero'].valueChanges.subscribe(async data => {
-      this.nameFileValidation.numero = data;
-      this.validationNameFile()
     })
     this.formGroup.controls['rc_fecha'].valueChanges.subscribe(async data => {
-      this.nameFileValidation.fecha = ((new Date(data)).getFullYear()).toString().substring(2,4);
-      this.validationNameFile()
     })
 
-  }
-
-  validationNameFile(){
-    this.nameFileValidation.val='';
-    this.clearFile();
-    const nameVal = this.nameFileValidation.numero+'-'+this.nameFileValidation.fecha+'-'+this.nameFileValidation.tipo
-    if (nameVal.length==10)
-    {
-      this.nameFileValidation.val=nameVal;
-      this.formGroup.controls['rc_filename'].enable();
-    }
   }
 
   deleteRow(rowSelect: any) {
@@ -200,9 +160,11 @@ export class DialogInsertComponent implements OnInit  {
 
     });
   }
+
   valNotificados(event: any){
     this.inputNotificados = event;
   }
+
   handler(event: any){
     this.filterNotificados.setValue(event.value)
     this.formGroupNotificacion.controls['t_aquien'].setValue(event.value);
