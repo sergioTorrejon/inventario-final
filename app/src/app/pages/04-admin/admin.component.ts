@@ -14,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import {
   MessageBoxComponent,
-} from 'src/app/components/dialogs/message-box/message-box.component';
+} from 'src/app/components/message-box/message-box.component';
 import { Words } from 'src/app/models/words';
 
 import {

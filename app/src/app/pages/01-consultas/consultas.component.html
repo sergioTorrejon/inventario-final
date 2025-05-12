@@ -5,7 +5,7 @@
     <!-- TITULO CABECERA -->
     <mat-card-header>
       <img mat-card-avatar src="assets/images/img/documentos1.jpg" class="header-image"/>
-      <mat-card-title>Registros</mat-card-title>
+      <mat-card-title>Consultas</mat-card-title>
       <span fxFlex></span>
       <div style="text-align: right;"  fxFlex.gt-lg="10" fxFlex.gt-md="10"  fxFlex.gt-xs="100" fxFlex="100" >
         <button mat-button color="primary" [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon>{{ _words.esp.opciones }}</button>
@@ -20,22 +20,9 @@
   <!--SUB TITULO O TITULO DE LA TABLA-->
 
   <!--BUSQUEDA AVANZADA-->
-  <div *ngIf="this.authorizationService.isAuthorized('operador')" fxLayout="row wrap">
+  <div fxLayout="row wrap">
     <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100" >
       <div fxLayout="row wrap" >
-
-        <!-- ESTADO -->
-        <div fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
-          <form  [formGroup]="formGroup" >
-            <mat-form-field class="form-search" appearance="outline" >
-              <mat-label>Estado</mat-label>
-              <mat-select formControlName="etapa">
-                <mat-option value="">TODOS</mat-option>
-                <mat-option *ngFor="let option of estado" [value]="option.value">{{option.label}}</mat-option>
-              </mat-select >
-            </mat-form-field>
-          </form>
-        </div>
 
         <!-- GESTIÓN -->
         <div fxFlex.gt-lg="10" fxFlex.gt-md="10"  fxFlex.gt-xs="100" fxFlex="100">

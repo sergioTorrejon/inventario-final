@@ -1,0 +1,126 @@
+<!-- HEADER -->
+<div fxLayout="row wrap">
+  <div>
+    <img src="assets/images/logo-aps.png" alt="homepage" class="light-logo">
+  </div>
+  <span fxFlex></span>
+  <button mat-icon-button color="warn" matDialogClose="cancel" matTooltip="Salir" (click)="close('close')">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<h2 mat-dialog-title class="head-dialog" style="text-align: center;">Registro de Productos</h2>
+<!--FIN DEL HEADER -->
+
+<!-- BODY -->
+<div mat-dialog-content> 
+  <!-- FORMULARIO -->
+
+  <!-- FORMULARIO INSECION -->
+  <div fxLayout="row wrap">
+
+    <!----------------------- FILA 1 ----------------------------->
+    <!-- TIPO DE PRODUCTO -->
+    <div fxFlex="50">
+      <form  [formGroup]="formGroup" >
+        <mat-form-field class="form-element" appearance="outline" >
+          <mat-label>Tipo de Producto</mat-label>
+          <mat-select formControlName="tipoProducto">
+            <mat-option *ngFor="let option of this.dataOptions.tipo" [value]="option.descrip">{{option.descrip}}</mat-option>
+          </mat-select>
+          <mat-error >Seleccione el tipo de producto</mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+
+    <!-- MARCA -->
+    <div fxFlex="50">
+      <form  [formGroup]="formGroup" >
+        <mat-form-field class="form-element" appearance="outline" >
+          <mat-label>Marca</mat-label>
+          <mat-select formControlName="marca">
+            <mat-option *ngFor="let option of this.dataOptions.marca" [value]="option.descrip">{{option.descrip}}</mat-option>
+          </mat-select>
+          <mat-error >Seleccione la Marca</mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+
+    <!---------------------- FIN FILA 1 ------------------------->
+
+    <!---------------------- FILA 2 ----------------------------->
+
+    <!-- MEDIDA -->
+    <div fxFlex.gt-lg="30" fxFlex.gt-md="30"  fxFlex.gt-xs="100" fxFlex="100">
+      <form  [formGroup]="formGroup" >
+        <mat-form-field class="form-element" appearance="outline" >
+          <mat-label>Medida</mat-label>
+          <mat-select formControlName="medida">
+            <mat-option *ngFor="let option of this.dataOptions.medida" [value]="option.descrip">{{option.descrip}}</mat-option>
+          </mat-select>
+          <mat-error >Seleccione una medida</mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+
+    <!-- MODELO -->
+    <div fxFlex.gt-lg="30" fxFlex.gt-md="30"  fxFlex.gt-xs="100" fxFlex="100">
+      <form  [formGroup]="formGroup" >
+        <mat-form-field class="form-element" appearance="outline" >
+          <mat-label>Modelo </mat-label>
+          <input  matInput formControlName="modelo" >
+          <mat-error >Ingrese el Modelo</mat-error>
+        </mat-form-field>
+      </form>
+    </div>    
+
+    <!-- UNIDAD DE MEDIDA -->
+    <div fxFlex.gt-lg="40" fxFlex.gt-md="40"  fxFlex.gt-xs="100" fxFlex="100">
+      <form  [formGroup]="formGroup" >
+        <mat-form-field class="form-element" appearance="outline" >
+          <mat-label>Unidad de Medida</mat-label>
+          <mat-select formControlName="unidad">
+            <mat-option *ngFor="let option of this.dataOptions.umedida" [value]="option.descrip">{{option.descrip}}</mat-option>
+          </mat-select>
+          <mat-error >Seleccione una unidad de medida</mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+
+
+    <!---------------------- FIN FILA 2 ------------------------->
+
+    <!---------------------- FILA 3 ----------------------------->
+
+    <!-- DESCRIPCION -->
+    <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100">
+      <form  [formGroup]="formGroup" >
+        <mat-form-field class="form-element" appearance="outline">
+          <mat-label>Descripción</mat-label>
+          <input  matInput formControlName="descripcion"  maxlength = "1000">
+          <mat-error >Ingrese una descripciòn</mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+
+    <!---------------------- FIN FILA 3 ------------------------->
+
+  </div>
+
+  <!-- FIN DEL  FORMULARIO INSECION -->
+
+</div>
+<!--FIN DEL BODY -->
+
+<!-- ACTIONS -->
+<div mat-dialog-actions fxLayout="row wrap"   >
+  <div fxFlex.gt-lg="80" fxFlex.gt-md="80"  fxFlex.gt-xs="100" fxFlex="100">
+  </div>
+  <div fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100">
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" >
+      <div class="form-element" >
+        <button mat-raised-button color="primary" type="submit" class="form-element" matTooltip="Registrar" [disabled]="formGroup.invalid"><mat-icon>save</mat-icon> Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- FIN DE ACTIONS *ngIf="dataRow.length==0"-->

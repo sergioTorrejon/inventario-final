@@ -16,7 +16,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ChartistModule } from 'ng-chartist';
 import { SpinnerComponent } from './spinner/spinner.component';
-import { MessageBoxComponent } from './dialogs/message-box/message-box.component';
+import { MessageBoxComponent } from './message-box/message-box.component';
 
 @NgModule({
     declarations: [

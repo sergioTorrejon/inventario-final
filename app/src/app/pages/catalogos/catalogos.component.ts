@@ -3,39 +3,30 @@ import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MessageBoxComponent } from 'src/app/components/message-box/message-box.component';
-import { Words } from 'src/app/models/words';
 import { AuthorizationService } from '../../authentication/services/authorization.service';
 import { DialogDocumentComponent } from './dialog-document/dialog-document.component';
 import { DialogInsertComponent } from './dialog-insert/dialog-insert.component';
 import { DialogUpdateComponent } from './dialog-update/dialog-update.component';
-import { RegistrosService } from './registros.service';
+import { CatalogosService } from './catalogos.service';
 
 @Component({
-  selector: 'app-registros',
-  templateUrl: './registros.component.html',
-  styleUrls: ['./registros.component.css'],
+  selector: 'app-catalogos',
+  templateUrl: './catalogos.component.html',
+  styleUrls: ['./catalogos.component.css'],
 })
-export class RegistrosComponent implements OnInit {
-
-  //Palabras Internacionalizadas
-  _words = Words;
+export class CatalogosComponent implements OnInit {
 
   // Variables del Formulario
   formGroup: UntypedFormGroup;
+  
   formControl:any=
   {
-    model:['cartas_resoluciones'],
-    entidad:[''],
-    modulo:['REGISTRO'],
-    etapa:[''],
-    year:['0'],
-    tipo:[''],
-    //subtipo:[''],
-    mercado:[''],
-    numero:[''],
-    titulo:[''],
-    del:[''],
-    al:[''],
+    tipoProducto:[''],
+    marca:[''],
+    medida:[''],
+    modelo:[''],
+    unidad:[''],
+    descripcion:[''],
   };
 
   //sort
@@ -56,25 +47,26 @@ export class RegistrosComponent implements OnInit {
   headersTable: any =
   [
     //FORMULARIO
-    {name:'rc_tipo', label:'Documento',  width:15},
-    {name:'rc_tipo', label:'Tipo de Resolución',  width:19},
-    {name:'rc_numero', label:'Número',  width:8},
-    {name:'rc_fecha', label:'Fecha',  width:8},
-    {name:'rc_titulo', label:'Título / Referencia', width:40},
+    {name:'tipo_producto', label:'Tipo de Producto',  width:15},
+    {name:'marca', label:'Marca',  width:15},
+    {name:'medida', label:'Medida',  width:15},
+    {name:'modelo', label:'Modelo',  width:15},
+    {name:'unidad', label:'Unidad Medida', width:15},
+    {name:'descripcion', label:'Descripción', width:15},
   ];
 
-  estado: any =
+  categorias: any =
   [
     //FORMULARIO
-    {value:'CREADO', label:'CREADO'},
-    {value:'PENDIENTE', label:'PENDIENTE'},
-    {value:'APROBADO', label:'APROBADO'},
+    {value:'tipo', label:'Tipo de Producto'},
+    {value:'marca', label:'Marca'},
+    {value:'medida', label:'Medida'},
   ];
 
   constructor(
     private formBuilder: UntypedFormBuilder,
     private dialog: MatDialog,
-    public rest: RegistrosService,
+    public rest: CatalogosService,
     public authorizationService: AuthorizationService,
     private _snackBar: MatSnackBar
     ) {
@@ -82,6 +74,10 @@ export class RegistrosComponent implements OnInit {
     }
 
     ngOnInit() {
+      this.rest.getOptions().
+      subscribe((data:any) => {
+        this.dataOptions = data.data;
+      });
       this.setForm();
       this.getParams();
     }
@@ -117,21 +113,21 @@ export class RegistrosComponent implements OnInit {
       this.page.size = event.pageSize !== undefined? event.pageSize: 10;
       this.page.index = event.pageIndex !== undefined? event.pageIndex: 0;
       const dto = (this.formGroup).getRawValue();
-      this.rest.getDocs(dto,this.page.index+1, this.page.size,this.sort, this.order)
+      this.rest.getAll(dto,this.page.index+1, this.page.size,this.sort, this.order)
       .subscribe((data:any) => {
         this.data = data.data;
         this.count = data.count;
       });
     }
 
-  openSnackBar(message: string, action: string, type:string) {
-    this._snackBar.open(message, action, {
-      duration: 2000,
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      panelClass: [type]
-    })
-  }
+    openSnackBar(message: string, action: string, type:string) {
+      this._snackBar.open(message, action, {
+        duration: 2000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: [type]
+      })
+    }
 
   insertRow()
   {

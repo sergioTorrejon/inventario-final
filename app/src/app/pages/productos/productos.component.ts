@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MessageBoxComponent } from 'src/app/components/dialogs/message-box/message-box.component';
+import { MessageBoxComponent } from 'src/app/components/message-box/message-box.component';
 import { AuthorizationService } from '../../authentication/services/authorization.service';
 import { DialogDocumentComponent } from './dialog-document/dialog-document.component';
 import { DialogInsertComponent } from './dialog-insert/dialog-insert.component';

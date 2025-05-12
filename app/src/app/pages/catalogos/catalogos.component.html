@@ -1,0 +1,199 @@
+<div fxLayout="row wrap">
+  <div fxFlex="100">
+    <mat-card class="card">
+
+    <!-- TITULO CABECERA -->
+    <mat-card-header>
+      <img mat-card-avatar src="assets/images/img/documentos1.jpg" class="header-image"/>
+      <mat-card-title>Productos</mat-card-title>
+      <span fxFlex></span>
+      <div style="text-align: right;"  fxFlex.gt-lg="10" fxFlex.gt-md="10"  fxFlex.gt-xs="100" fxFlex="100" >
+        <button mat-button color="primary" (click)="insertRow()">
+          <mat-icon>add</mat-icon>
+          Nuevo
+        </button>
+      </div>
+      <div style="text-align: right;"  fxFlex.gt-lg="10" fxFlex.gt-md="10"  fxFlex.gt-xs="100" fxFlex="100" >
+        <button mat-button color="primary" [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon>Opciones</button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="downloadpdf()">Reporte PDF</button>
+          <button mat-menu-item (click)="downloadxlsx()">Reporte Excel</button>
+        </mat-menu>
+      </div>
+    </mat-card-header>
+    <!-- FIN CABECERA -->
+
+    <!--SUB TITULO O TITULO DE LA TABLA-->
+
+    <!--BUSQUEDA AVANZADA-->
+    <div fxLayout="row wrap">
+      <div fxFlex.gt-lg="100" fxFlex.gt-md="100"  fxFlex.gt-xs="100" fxFlex="100" >
+
+        <div fxLayout="row wrap" >
+
+          <!-- TIPO DE PRODUCTO -->
+          <div fxFlex.gt-lg="10" fxFlex.gt-md="10"  fxFlex.gt-xs="100" fxFlex="100">
+            <form  [formGroup]="formGroup" >
+              <mat-form-field class="form-search" appearance="outline" >
+                <mat-label>Tipo de Producto</mat-label>
+                <mat-select formControlName="tipoProducto">
+                  <mat-option value="">TODOS</mat-option>
+                  <mat-option *ngFor="let option of this.dataOptions.tipo" [value]="option.descrip" >{{option.descrip}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </form>
+          </div>
+
+          <!-- MARCA -->
+          <div fxFlex.gt-lg="25" fxFlex.gt-md="25"  fxFlex.gt-xs="100" fxFlex="100">
+            <form  [formGroup]="formGroup" >
+              <mat-form-field class="form-search" appearance="outline" >
+                <mat-label>marca</mat-label>
+                <mat-select formControlName="marca">
+                  <mat-option value="">TODOS</mat-option>
+                  <mat-option *ngFor="let option of this.dataOptions.marca" [value]="option.descrip">{{option.descrip}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </form>
+          </div>
+
+          <!-- MEDIDA -->
+          <div fxFlex.gt-lg="35" fxFlex.gt-md="35"  fxFlex.gt-xs="100" fxFlex="100">
+            <form  [formGroup]="formGroup" >
+              <mat-form-field class="form-search" appearance="outline" >
+                <mat-label>Medida</mat-label>
+                <mat-select formControlName="medida">
+                  <mat-option value="">TODOS</mat-option>
+                  <mat-option *ngFor="let option of this.dataOptions.medida" [value]="option.descrip">{{option.descrip}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </form>
+          </div>
+
+          <!-- MODELO -->
+          <div fxFlex.gt-lg="20" fxFlex.gt-md="20"  fxFlex.gt-xs="100" fxFlex="100" >
+            <form  [formGroup]="formGroup" >
+              <mat-form-field class="form-search" appearance="outline">
+                <mat-label>Modelo</mat-label>
+                <input type="text"  matInput formControlName="modelo" autocomplete="off">
+                <button mat-button *ngIf="formGroup.controls['modelo'].value" matSuffix mat-icon-button color="warn" aria-label="Clear" (click)="formGroup.controls['modelo'].setValue('')">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </form>
+          </div>
+
+          <!-- UNIDAD DE MEDIDA -->
+          <div fxFlex.gt-lg="10" fxFlex.gt-md="10"  fxFlex.gt-xs="100" fxFlex="100">
+            <form  [formGroup]="formGroup" >
+              <mat-form-field class="form-search" appearance="outline" >
+                <mat-label>Unidad de Medida</mat-label>
+                <mat-select formControlName="unidad">
+                  <mat-option value="">TODOS</mat-option>
+                  <mat-option *ngFor="let option of this.dataOptions.umedida" [value]="option.descrip" >{{option.descrip}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </form>
+          </div>          
+
+          <!-- DESCRIPCION -->
+          <div fxFlex.gt-lg="40" fxFlex.gt-md="40"  fxFlex.gt-xs="100" fxFlex="100" >
+            <form  [formGroup]="formGroup" >
+              <mat-form-field class="form-search" appearance="outline">
+                <mat-label>Descripción</mat-label>
+                <input type="text" maxlength = "100" matInput formControlName="descripcion" onkeypress="return (event.charCode != 39)">
+                <button mat-button *ngIf="formGroup.controls['descripcion'].value" matSuffix mat-icon-button color="warn" aria-label="Clear" (click)="formGroup.controls['descripcion'].setValue('')">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </form>
+          </div>
+
+          <!-- BOTON DE LIMPIAR -->
+          <div style="text-align: center;" fxFlex.gt-lg="10" fxFlex.gt-md="10"  fxFlex.gt-xs="100" fxFlex="100" >
+            <button mat-button class="form-search" color="primary" (click)="setForm()">
+              <mat-icon>autorenew</mat-icon>
+              Limpiar
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <!-- FIN BUSQUEDA AVANZADA -->
+
+    <!-- CABECERAS DE LA TABLA -->
+      <div fxLayout="row wrap" matSort (matSortChange)="sortData($event)" matSortActive="rc_fecha" matSortDirection="desc" matSortDisableClear>
+        <div   class="form-table-head"
+        *ngFor="let config of headersTable" [mat-sort-header]="config.name" [fxFlex.gt-lg]="config.width" [fxFlex.gt-md]="config.width" fxFlex.gt-xs="100" fxFlex="100">
+        {{config.label}}
+        </div>
+        <div class="form-table-head" fxFlex.gt-lg="10" fxFlex.gt-md="10"  fxFlex.gt-xs="100" fxFlex="100">
+        </div>
+      </div>
+    <!-- FIN CABECERAS DE LA TABLA -->
+
+    <!-- DATA DE LA TABLA -->
+    <div fxLayout="row wrap" *ngFor="let config of data">
+      <div class="form-table-body"   fxFlex.gt-lg="15" fxFlex.gt-md="15"  fxFlex.gt-xs="100" fxFlex="100">
+        <div class="form-table-body" >
+          {{config['tipo_producto']}}
+        </div>
+      </div>
+      <div class="form-table-body"   fxFlex.gt-lg="15" fxFlex.gt-md="15"  fxFlex.gt-xs="100" fxFlex="100">
+        <div class="form-table-body" >
+          {{config['marca']}}
+        </div>
+      </div>
+      <div class="form-table-body"   fxFlex.gt-lg="15" fxFlex.gt-md="15"  fxFlex.gt-xs="100" fxFlex="100">
+        <div class="form-table-body" >
+          {{config['medida']}}
+        </div>
+      </div>
+      <div class="form-table-body"   fxFlex.gt-lg="15" fxFlex.gt-md="15"  fxFlex.gt-xs="100" fxFlex="100">
+        <div class="form-table-body" >
+          {{config['modelo']}}
+        </div>
+      </div>
+      <div class="form-table-body"   fxFlex.gt-lg="15" fxFlex.gt-md="15"  fxFlex.gt-xs="100" fxFlex="100">
+        <div class="form-table-body" >
+          {{config['unidad']}}
+        </div>
+      </div>
+      <div class="form-table-body"   fxFlex.gt-lg="15" fxFlex.gt-md="15"  fxFlex.gt-xs="100" fxFlex="100">
+        <div class="form-table-body" >
+          {{config['descripcion']}}
+        </div>
+      </div>            
+      <div style="text-align: right;" fxFlex.gt-lg="10" fxFlex.gt-md="10"  fxFlex.gt-xs="10" fxFlex="10">
+        <button *ngIf="config.rc_filesize>0&&config.etapa=='CREADO'" mat-icon-button matTooltip="ver adjunto" (click)="openPdf(config)">
+          <mat-icon color="warn">picture_as_pdf</mat-icon>
+        </button>
+          <button *ngIf="config.etapa=='CREADO'" mat-icon-button matTooltip="Editar" (click)="updateRow(config)">
+            <mat-icon color="accent">edit</mat-icon>
+          </button>
+          <button *ngIf="config.etapa=='CREADO'" mat-icon-button matTooltip="Eliminar" (click)="deleteRow(config)">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+          <button *ngIf="config.etapa=='APROBADO'" mat-icon-button matTooltip="Aprobado" (click)="documentRow(config)">
+            <mat-icon style="color: green;">verified_user</mat-icon>
+          </button>
+          <button *ngIf="config.etapa=='PENDIENTE'"mat-icon-button matTooltip="Pendiente" (click)="documentRow(config)">
+            <mat-icon color='warn'>privacy_tip</mat-icon>
+          </button>
+      </div>
+      <mat-divider></mat-divider>
+    </div>
+    <!-- FIN DATA DE LA TABLA -->
+
+    <!-- PAGINACION DE LA TABLA -->
+    <div >
+      <mat-paginator [length]="count" [pageSize]="page.size" [pageIndex]="page.index" [pageSizeOptions]="[5, 10, 25, 100]"
+      (page)="dataTableUpdate($event)"></mat-paginator>
+    </div>
+    <!-- FIN PAGINACION DE LA TABLA -->
+
+    </mat-card>
+  </div>
+</div>

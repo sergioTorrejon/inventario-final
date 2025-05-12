@@ -36,29 +36,6 @@ const MENUITEMS: any =
 [
 
   {
-    state: '',
-    name: 'Admin',
-    type: 'sub',
-    icon: 'settings',
-    role : ['administrador'],
-    children: [
-      { state: 'administrador', name: 'Administrador', type: 'link' },
-    ]
-  },  
-
-  {
-    state: '',
-    name: 'Supervisor',
-    type: 'sub',
-    icon: 'settings',
-    role : ['supervisor'],
-    children: [
-      { state: 'verificacion', name: 'Verificación', type: 'link' },
-      { state: 'productos', name: 'Productos', type: 'link' },
-    ]
-  },  
-
-  {
     state: 'consultas',
     name: 'Consultas',
     type: 'link',
@@ -67,29 +44,30 @@ const MENUITEMS: any =
     children: []
   },
   {
-    state: 'registros',
-    name: 'Registros',
-    type: 'link',
+    state: '',
+    name: 'Operador',
+    type: 'sub',
     icon: 'edit_note',
     role : ['operador'],
-    children: []
-  },
-/*   {
-    state: 'verificacion',
-    name: 'Verificación',
-    type: 'link',
+    children: [
+      { state: 'productos', name: 'Productos', type: 'link' },
+      { state: 'registros', name: 'Registros', type: 'link' },
+    ]
+  }, 
+
+  {
+    state: '',
+    name: 'Supervisor',
+    type: 'sub',
     icon: 'checklist_rtl',
     role : ['supervisor'],
-    children: []
-  }, */
-/*   {
-    state: 'administrador',
-    name: 'Administrador',
-    type: 'link',
-    icon: 'settings',
-    role : ['administrador'],
-    children: []
-  }, */
+    children: [
+      { state: 'catalogos', name: 'Catalogos', type: 'link' },
+      { state: 'productos', name: 'Productos', type: 'link' },
+      { state: 'verificacion', name: 'Verificación', type: 'link' },
+    ]
+  },  
+
 ];
 
 @Injectable()

@@ -11,15 +11,12 @@
                             </div>
         
                             <div fxLayout="row wrap">
-                                <!-- col full-->
-        
                                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                                   <mat-form-field>
                                       <input matInput placeholder="Nombre de usuario" [formControl]="form.controls['uname']">
                                   </mat-form-field>
                                   <small *ngIf="form.controls['uname'].hasError('required') && form.controls['uname'].touched" class="text-danger support-text">Nombre de usuario es obligatorio.</small>
-                              </div>
-                                <!-- col full-->
+                                </div>
                                 <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
                                     <mat-form-field>
                                         <input matInput type="password" placeholder="Password" [formControl]="form.controls['password']">
@@ -51,10 +48,10 @@
                         <div class="text-center">
                             <h6>Selecciona un usuario de prueba:</h6>
                         </div>
-                      <button mat-raised-button color="default" class="btn-block btn-lg-dev m-t-20 m-b-20" (click)="changeUser('administrador')" style="font-size: 10px;">Administrador</button>
-                      <button mat-raised-button color="default" class="btn-block btn-lg-dev m-t-20 m-b-20" (click)="changeUser('operador')" style="font-size: 10px;">Operador</button>
-                      <button mat-raised-button color="default" class="btn-block btn-lg-dev m-t-20 m-b-20" (click)="changeUser('supervisor')" style="font-size: 10px;">Supervisor</button>
-                      <button mat-raised-button color="default" class="btn-block btn-lg-dev m-t-20 m-b-20" (click)="changeUser('consulta')" style="font-size: 10px;">Consulta</button>
+                        <button mat-raised-button color="default" class="btn-block btn-lg-dev " (click)="changeUser('consulta')" style="font-size: 10px;">Consulta</button>
+                        <button mat-raised-button color="default" class="btn-block btn-lg-dev " (click)="changeUser('operador')" style="font-size: 10px;">Operador</button>
+                        <button mat-raised-button color="default" class="btn-block btn-lg-dev " (click)="changeUser('supervisor')" style="font-size: 10px;">Supervisor</button>
+                        <button mat-raised-button color="default" class="btn-block btn-lg-dev " (click)="changeUser('administrador')" style="font-size: 10px;">Administrador</button>
                     </div>
                 </div>
             </mat-card-content>

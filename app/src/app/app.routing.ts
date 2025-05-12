@@ -41,14 +41,22 @@ export const AppRoutes: Routes = [
       {
         path: 'productos',
         //canActivate: [AuthGuard],
-        canActivate: [SupervisorGuard],
+        canActivate: [],
         loadChildren: () => import('./pages/productos/productos.module').then(m => m.ProductosModule)
       },
 
       {
+        path: 'catalogos',
+        //canActivate: [AuthGuard],
+        canActivate: [],
+        loadChildren: () => import('./pages/catalogos/catalogos.module').then(m => m.CatalogosModule)
+      },
+
+
+      {
         path: 'administrador',
         //canActivate: [AuthGuard],
-        //canActivate: [AdminGuard],
+        canActivate: [AdminGuard],
         loadChildren: () => import('./pages/04-admin/admin.module').then(m => m.AdminModule)
       },
     ]
