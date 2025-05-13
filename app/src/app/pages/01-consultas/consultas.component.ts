@@ -53,19 +53,15 @@ export class ConsultasComponent implements OnInit {
 
   // Variables del Formulario
   formGroup: UntypedFormGroup;
+
   formControl:any=
   {
-    model:['cartas_resoluciones'],
-    modulo:[''],
-    entidad:['PS'],
-    year:['0'],
-    tipo:[''],
-    subtipo:[''],
-    mercado:[''],
-    numero:[''],
-    titulo:[''],
-    del:[''],
-    al:[''],
+    tipoProducto:[''],
+    marca:[''],
+    medida:[''],
+    modelo:[''],
+    unidad:[''],
+    descripcion:[''],
   };
 
   //Pagination and Sort
@@ -86,12 +82,13 @@ export class ConsultasComponent implements OnInit {
   //Congif Table
   headersTable: any =
   [
-    {name:'rc_inten', label:'Institución', width:15},
-    {name:'rc_tipo', label:'Documento',  width:10},
-    {name:'rc_subtipo', label:'Tipo Resolución',  width:10},
-    {name:'rc_numero', label:'Número',  width:7},
-    {name:'rc_fecha', label:'Fecha',  width:8},
-    {name:'rc_titulo', label:'Título / Referencia', width:45},
+    //FORMULARIO
+    {name:'tipo_producto', label:'Tipo de Producto',  width:15},
+    {name:'producto', label:'Producto',  width:25},
+    {name:'unidad', label:'Unidad Medida', width:15},
+    {name:'precio', label:'Precio',  width:15},
+    {name:'saldo', label:'Saldo',  width:15},
+    {name:'total', label:'Total', width:10},
   ];
 
 
@@ -129,7 +126,6 @@ export class ConsultasComponent implements OnInit {
     })
     this.formGroup.controls['tipo'].valueChanges.subscribe(async data => {
       this.formGroup.controls['subtipo'].enable();
-
       if (data!='RA'){
         this.formGroup.controls['subtipo'].disable();
         this.formGroup.controls['subtipo'].setValue('');
